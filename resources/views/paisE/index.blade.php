@@ -68,7 +68,7 @@
                                         <td class="text-center">{{ $extr->id}}</td>
                                         <td class="text-center">{{ $extr->nombre}}</td>
                                 
-                                        <td><a class="btn btn-primary btn-xs" href="" > Editar<span class="glyphicon glyphicon-pencil"></span></a></td>
+                                        <td><a class="btn btn-primary btn-xs" href="{{route('paisE.edit', $extr->id)}}">Editar<span class="glyphicon glyphicon-pencil"></span></a></td>
                                         <td>
                             
                                         <form action="{{ route('paisE.delete', $extr->id) }}" method="POST">

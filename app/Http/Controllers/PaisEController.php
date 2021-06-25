@@ -39,5 +39,19 @@ class PaisEController extends Controller
   
            return redirect()->route('paisE.index');
   }
+  /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+        $this->validate($request,[ 'id'=>'required', 'nombre'=>'required']);
+    PaisE::find($id)->update($request->all());
+    return redirect()->route('paisE.index')->with('success','Registro creado satisfactoriamente');
+    }
 
 }
