@@ -16,7 +16,7 @@ class UserController extends Controller
      // verificar el usuario sea un admin
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin']); // esto decide que usuario accede a la vista, pueden ser ambos.
         $usuario = User::orderBy('id', 'ASC')->get();
         return view('usuarios.index')->with('usuario', $usuario);
     }
