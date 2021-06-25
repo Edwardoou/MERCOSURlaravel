@@ -13,12 +13,22 @@ class PaisEController extends Controller
     public function index()
     {
       // Devolverá todos los comercial
-      $extranjero = PaisE::get();
+      $extranjero = PaisE::orderBy('id', 'ASC')->get();
       return view('paisE.index')->with('extranjero', $extranjero);
     }
     
-
-    public function store(Request $request)
+  
+    public function create()
+    {
+    //
+    return view('paisE.create');
+    }
+    public function show($id)
+ {
+ $extranjero=PaisE::find($id);
+ return view('paisE.show',compact('extranjero'));
+ }
+  public function store(Request $request)
   {
     $extranjero = new PaisE;
     $extranjero->id=$request->input('id');
@@ -26,26 +36,13 @@ class PaisEController extends Controller
     $extranjero->save();
     return redirect()->route('paisE.index');
   }
-  // public function destroy($id)
-  //   {
-  //       //
-  //   $id->delete();
-  //   return redirect()->route('paisE.index')->with('success','Registro eliminado satisfactoriamente');
-  //   }
-  public function delete($id) 
-  {
-           $extranjero= PaisE::findOrFail($id);
-           $extranjero->delete();
-  
-           return redirect()->route('paisE.index');
-  }
-  /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  public function edit($id)
+ {
+ //
+ $extranjero=PaisE::find($id);
+ return view('paisE.edit',compact('extranjero'));
+ }
+
     public function update(Request $request, $id)
     {
         //
@@ -53,5 +50,15 @@ class PaisEController extends Controller
     PaisE::find($id)->update($request->all());
     return redirect()->route('paisE.index')->with('success','Registro creado satisfactoriamente');
     }
-
+    public function destroy($id) 
+    {
+             $extranjero= PaisE::findOrFail($id);
+             $extranjero->delete();
+    
+             return redirect()->route('paisE.index');
+    }
+    public function getExtranjero(){
+      $extranjero=PaisE::all();
+      return response()->json($extranjero);
+      }
 }

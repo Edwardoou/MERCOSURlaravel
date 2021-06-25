@@ -1,11 +1,9 @@
-@extends('layouts.app')
-
+@extends('layoutsLOGIN.app')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-            <link href="css/style.css" rel="stylesheet">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">

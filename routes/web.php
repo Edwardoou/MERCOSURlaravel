@@ -20,11 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 Route::resource('comercial', 'ComercialController');
+
 
 Auth::routes();
 Route::resource('diplomatica', 'DiplomaticaController');
@@ -35,5 +34,12 @@ Route::resource('paisE', 'PaisEController');
 Auth::routes();
 Route::resource('paisM', 'PaisMController');
 
-
 Route::delete('/paisE/delete/{id}', 'PaisEController@delete')->name('paisE.delete');
+
+Auth::routes();
+Route::get('/moders',[App\Http\Controllers\ModersController::class, 'moders'])->name('moders');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/users',[App\Http\Controllers\UsersController::class, 'users'])->name('users');
+
+Auth::routes();
+Route::resource('usuarios', 'UserController');

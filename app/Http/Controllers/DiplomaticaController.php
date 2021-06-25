@@ -10,23 +10,65 @@ class DiplomaticaController extends Controller
     *
     * @return Response
     */
-    public function index()
-    {
-      // Devolverá todos los comercial
-      $diplomaticas = Diplomatica::get();
-      return view('diplomatica.index')->with('diplomaticas', $diplomaticas);
-    }
-
+  public function index()
+  {
+    // Devolverá todos los comercial
+    $diplomaticas = Diplomatica::orderBy('id', 'ASC')->get();
+    return view('diplomatica.index')->with('diplomaticas', $diplomaticas);
+  }
+  /////////////////////////////////////////////////////////
     public function store(Request $request)
   {
-    $diplomaticas = new Comercial;
-    $diplomaticas->iddiplo=$request->input('iddiplo');
+    $diplomaticas = new Diplomatica;
+    $diplomaticas->id=$request->input('id');
     $diplomaticas->titulo=$request->input('titulo');
     $diplomaticas->fecha=$request->input('fecha');
-    $diplomaticas->detalle->input('detalle');
+    $diplomaticas->detalle=$request->input('detalle');
 
-    $comercial->save();
+    $diplomaticas->save();
     return redirect()->route('diplomatica.index');
   }
-  
+  /////////////////////////////////////////////////////////
+  public function delete($id) 
+  {
+    $diplomaticas= Diplomatica::findOrFail($id);
+    $diplomaticas->delete();
+    return redirect()->route('diplomatica.index');
+  }
+  /////////////////////////////////////////////////////////
+  public function create()
+  {
+    return view('diplomatica.create');
+  }
+  /////////////////////////////////////////////////////////
+  public function show($id)
+  {
+    $diplomaticas=Diplomatica::find($id);
+    return view('diplomatica.show',compact('diplomaticas'));
+  }
+  /////////////////////////////////////////////////////////
+  public function edit($id)
+  {
+    $diplomaticas=Diplomatica::find($id);
+    return view('diplomatica.edit',compact('diplomaticas'));
+  }
+  /////////////////////////////////////////////////////////
+  public function update(Request $request, $id)
+  {
+    $this->validate($request,[ 'id'=>'required', 'titulo'=>'required','fecha'=>'required','detalle'=>'required']);
+    Diplomatica::find($id)->update($request->all());
+    return redirect()->route('diplomatica.index')->with('success','Registro creado satisfactoriamente');
+  }
+  /////////////////////////////////////////////////////////
+  public function destroy($id) 
+  {
+    $diplomaticas= Diplomatica::findOrFail($id);
+    $diplomaticas->delete();
+    return redirect()->route('diplomatica.index');
+  }
+  /////////////////////////////////////////////////////////  
+  public function getDiplomatica(){
+    $diplomaticas=Diplomatica::all();
+    return response()->json($diplomaticas);
+  }
 }

@@ -1,73 +1,134 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title> RELACION DIPLOMATICA </title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <title>Diplomática</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------->
+    <div id="app">
+    <link href="/css/style.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/style.css">
-    </head>
-    <body>
-    <header>
-    <a href="#" class="logo">
-        <img src="img/logo/30logo.png" alt="" width="140" height="94" class="d-inline-block align-text-center">
-        MERCOSUR
-    </a>
-    <ul>
-        <li><a href="http://localhost:8000/index.php">Menu</a></li>
-        <li><a href="http://localhost:8000/comercial">R. Comerciales</a></li>
-        <li><a href="http://localhost:8000/diplomatica">R. Diplomaticas</a></li>
-        <li><a href="http://localhost:8000/paisE">P. Extranjeros</a></li>
-        <li><a href="http://localhost:8000/paisM">P. Miembros</a></li>
-    </ul>
-</header>
-<section class="banner"></section>
-<script type="text/javascript">
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript">
     window.addEventListener("scroll", function(){
     var header = document.querySelector("header");
     header.classList.toggle("sticky", window.scrollY > 0);
     })
     </script>
-            <div class="container mt-5" style="padding-top:50px">
-                    <div class="row"> 
-                        
-                        <div class="col-md-3">
-                            <h1>Ingrese datos</h1>
-                    
-    
-                                    <input type="text" class="form-control mb-3" name="iddiplo" placeholder="Id" required="required">
-                                    <input type="text" class="form-control mb-3" name="titulo" placeholder="Titulo" required="required">
-                                    <input type="date" class="form-control mb-3" name="fecha" placeholder="Fecha" required="required"> 
-                                    <input type="text" class="form-control mb-3" name="detalle" placeholder="Detalle" required="required">
-                                    
-                                    <input type="submit" class="btn btn-primary">
-                            
-                        </div>
+    <header>
+  
+            <a href="#" class="logo">
+        <img src="/img/logo/30logo.png" alt="" width="140" height="94" class="d-inline-block align-text-center" > 
+        MERCOSUR
+        <ul>
+        <li><a href=""></a></li>
+        <li><a href="/index.php">Menu</a></li>
+        <li><a href="/comercial">Comerciales</a></li>
+        <li><a href="/diplomatica">Diplomaticas</a></li>
+        <li><a href="/paisE">Extranjeros</a></li>
+        <li><a href="/paisM">Miembros</a></li>
+        <li><a href="/usuarios">Usuarios</a></li>
+        
+        @guest
+                            <li>
+                                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
 
-                        <div class="col-md-8">
-                        <table class="table text-center" >
-                                <thead class="table-success table-striped" >
-                                    <tr>
-                                        <th>Iddiplo</th>
-                                        <th>Titulo</th>
-                                        <th>Fecha</th>
-                                        <th>Detalle</th>
-                                        <th colspan="2">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($diplomaticas as $diplomatica)
-                                    <tr>
-                                        <td class="text-center">{{ $diplomatica->iddiplo}}</td>
-                                        <td class="text-center">{{ $diplomatica->titulo}}</td>
-                                        <td class="text-center">{{ $diplomatica->fecha}}</td>
-                                        <td class="text-center">{{ $diplomatica->detalle}}</td>
-                                        <td class="text-center">
-                                @endforeach
-                                <tbody>
-                            </table>
-                        </div>
-                    </div>  
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            
+                        @endguest
+                </a>         
+                </ul> 
+                </div>
             </div>
+
+    <!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------->
+</head>
+<section class="banner"></section>
+<body>
+<div class="container mt-5" style="padding-top:50px">
+                    <div class="row"> 
+ <a href="{{ route('diplomatica.create') }}" class="btn btn-info" >Añadir Relacion Diplomatica</a>
+ <div class="col-md-12">
+ <br>
+                        <table class="table text-center bg-white" >
+                                <thead class="table-success table-striped" >
+ <th>ID R. Diplomaticas</th>
+ <th>Titulo</th>
+ <th>Fecha</th>
+ <th>Detalle</th>
+ <th colspan="4">Acciones</th>
+
+ </thead>
+ <tbody>
+ @if($diplomaticas->count())
+ @foreach($diplomaticas as $diplo)
+ <tr>
+ <td>{{$diplo->id}}</td>
+ <td>{{$diplo->titulo}}</td>
+ <td>{{$diplo->fecha}}</td>
+ <td>{{$diplo->detalle}}</td>
+
+ <td><a class="btn btn-warning btn-xs" href="{{action('DiplomaticaController@edit', $diplo->id)}}" >Editar</a></td>
+ <td>
+ <form action="{{action('DiplomaticaController@destroy', $diplo->id)}}" method="post">
+ @csrf
+ <input name="_method" type="hidden" value="DELETE">
+
+ <button class="btn btn-danger btn-xs" type="submit">Borrar</button>
+ </form>
+ </td>
+ </tr>
+ @endforeach
+ @else
+ <tr>
+ <td colspan="10">No hay registro !!</td>
+ </tr>
+ @endif
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ </div>
+ </div>
+</section>
+
     </body>
 </html>
