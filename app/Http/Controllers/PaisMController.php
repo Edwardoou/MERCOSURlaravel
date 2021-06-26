@@ -10,8 +10,9 @@ class PaisMController extends Controller
     *
     * @return Response
     */
-  public function index()
+  public function index(Request $request)
   {
+    $request->user()->authorizeRoles(['user']);
     $miembro = PaisM::orderBy('id', 'ASC')->get();
     return view('paisM.index')->with('miembro', $miembro);
   }

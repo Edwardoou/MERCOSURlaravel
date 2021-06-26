@@ -10,9 +10,9 @@ class DiplomaticaController extends Controller
     *
     * @return Response
     */
-  public function index()
+  public function index(Request $request)
   {
-    // Devolverá todos los comercial
+    $request->user()->authorizeRoles(['user']);
     $diplomaticas = Diplomatica::orderBy('id', 'ASC')->get();
     return view('diplomatica.index')->with('diplomaticas', $diplomaticas);
   }

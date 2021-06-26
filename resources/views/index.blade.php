@@ -37,6 +37,12 @@
         MERCOSUR
         <ul>
         <li><a href=""></a></li>
+        <li><a href="/index.php">Menu</a></li>
+        <li><a href="/comercial">Comerciales</a></li>
+        <li><a href="/diplomatica">Diplomaticas</a></li>
+        <li><a href="/paisE">Extranjeros</a></li>
+        <li><a href="/paisM">Miembros</a></li>
+        <li><a href="/usuarios">Usuarios</a></li>
 
                 @guest
                             <li>

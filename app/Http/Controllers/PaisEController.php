@@ -10,9 +10,9 @@ class PaisEController extends Controller
     *
     * @return Response
     */
-    public function index()
+    public function index(Request $request)
     {
-      // Devolverá todos los comercial
+      $request->user()->authorizeRoles(['user']);
       $extranjero = PaisE::orderBy('id', 'ASC')->get();
       return view('paisE.index')->with('extranjero', $extranjero);
     }
